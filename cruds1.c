@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdbool.h>
+#include<string.h>
     int code[100],qty[100];
     char name[100][30];
     float price[100];
@@ -105,10 +106,30 @@
                     }
                 }break; 
                 case 5:{
-
+                    printf("_________________ DELETE PRODUCT _________________\n");
+                    int dCode;
+                    bool isDeleted = false;
+                    printf("> Input Product Code To Delete: ");scanf("%d",&dCode);
+                    for(i=0;i<n;i++){
+                        if(dCode==code[i]){
+                            for(int j=i;j<n;j++){
+                                code[j]=code[j+1];
+                                strcpy(name[j],name[j+1]);
+                                qty[j]=qty[j+1];
+                                price[j]=price[j+1];
+                            }
+                            n--;
+                            isDeleted = true;
+                        }
+                    }
+                    if(isDeleted){
+                        printf("Product Information Deleted Successfully...\n");
+                    }else{
+                        printf("Product Information Cannot Delete...\n");
+                    }
                 }break;
                 case 6:{
-
+                    
                 }break;
                 case 7:{
 
