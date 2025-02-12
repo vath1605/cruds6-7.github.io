@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<string.h>
+#include<stdlib.h>
     int code[100],qty[100];
     char name[100][30];
     float price[100];
@@ -129,19 +130,101 @@
                     }
                 }break;
                 case 6:{
-                    
+                    printf("_________________ INSERT PRODUCT _________________\n");
+                    int iCode;
+                    bool isInsert = false;
+                    printf("> Input Prodcuct Code To Insert: ");scanf("%d",&iCode);
+                    for(i=0;i<n;i++){
+                        if(iCode==code[i]){
+                            isInsert=true;
+                        }
+                    }
+                    if(isInsert){
+
+                    }else{
+                        printf("Invalid Code...\n");
+                        break;
+                    }
+                    for(i=0;i<n;i++){
+                        if(iCode==code[i]){
+                            for(int j=n;j>=i;j--){
+                                code[j]=code[j-1];
+                                strcpy(name[j],name[j-1]);
+                                qty[j]=qty[j-1];
+                                price[j]=price[j-1];
+                            }
+                            n++;
+                            input();
+                            printf("Insert Product Is Successfully...\n");
+                            break;
+                        }
+                    }
                 }break;
                 case 7:{
+                    printf("_________________ SORT PRODUCT _________________\n");
+                    int tCode,tQty;
+                    char tName[30];
+                    float tPrice;
+                    bool isSorted = false;
+                    for(i=0;i<n;i++){
+                        for(int j=i+1;j<n;j++){
+                            if(price[i]<price[j]){
+                                tCode=code[i];
+                                code[i]=code[j];
+                                code[j]=tCode;
 
+                                tQty = qty[j];
+                                qty[j]=qty[i];
+                                qty[i] = tQty;
+
+                                tPrice = price[i];
+                                price[i] = price[j];
+                                price[j] = tPrice;
+
+                                strcpy(tName,name[i]);
+                                strcpy(name[i],name[j]);
+                                strcpy(name[j],tName);
+
+                                isSorted=true;
+                            }
+                        }
+                    }
+                    if(isSorted){
+                        printf("Product Information Is Sort Successfully...\n");
+                    }else{
+                        printf("Prodcut Cannot Sort...\n");
+                    }
                 }break;
                 case 8:{
-
+                    printf("_________________ ADD PRODUCT _________________\n");
+                    int newPro;
+                    printf("> Input Number Of New Product: ");scanf("%d",&newPro);
+                    for(i=n;i<n+newPro;i++){
+                        input();
+                    }
+                    n+=newPro;
+                    printf("Product Added Successfully...\n");
                 }break;
                 case 9:{
-
+                    printf("_________________ CASHING MONEY _________________\n");
+                    float money,invoid=0,subMoney;
+                    for(i=0;i<n;i++){
+                        invoid+=payment();
+                    }
+                    printf("Total Amount : %.2f \n",invoid);
+                    printf("> Input Money For Cashing: ");scanf("%f",&money);
+                    if(money>invoid){
+                        subMoney = money-invoid;
+                        printf("Luy Sol : %.2f\n",subMoney);
+                    }else if(invoid>money){
+                        subMoney = invoid-money;
+                        printf(" Bro Kvas Luy Hz , Kvas : %.2f\n",subMoney);
+                    }else{
+                        printf("Thanks for coming...get in later\n");
+                    }
                 }break;
                 case 10:{
-
+                    system("clear");
                 }break;
             }
         }while(op!=11);
